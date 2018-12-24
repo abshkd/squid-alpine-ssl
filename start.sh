@@ -15,6 +15,11 @@ prepare_folders() {
 	"$CHOWN" -R squid:squid /var/log/squid/
 }
 
+update_hosts() {
+  echo "Downloading updated hosts file..."
+  curl -o /etc/hosts https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+  sleep 5
+}
 initialize_cache() {
 	echo "Creating cache folder..."
 	"$SQUID" -z
@@ -50,6 +55,7 @@ clear_certs_db() {
 run() {
 	echo "Starting squid..."
 	prepare_folders
+        update_hosts
 	create_cert
 	clear_certs_db
 	initialize_cache

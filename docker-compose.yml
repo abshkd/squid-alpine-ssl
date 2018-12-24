@@ -1,7 +1,7 @@
 version: "3"
 services:
   squid-alpine-ssl:
-    image: alatas/squid-alpine-ssl:latest
+    image: mysquid
     environment:
       - CN=squid.local
       - O=squid
@@ -11,8 +11,11 @@ services:
       - "3128:3128"
       - "4128:4128"
     volumes:
-      - ./log:/var/log/
+#      - ./log:/var/log/
       - ./conf/squid.conf:/etc/squid/squid.conf
-      - ./cache:/var/cache
+#      - ./cache:/var/cache
       - ./cert:/etc/squid-cert
+    tmpfs:
+      - /var/log
+      - /var/cache
     restart: always
